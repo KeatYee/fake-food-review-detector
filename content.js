@@ -423,6 +423,8 @@ class FoodTrustFloatingUI {
                 aiPrediction: result.predicted_label,
                 isFake: result.is_fake,
                 confidence: result.confidence,
+                reasonCategory: result.reason_category,
+                reasonDescription: result.reason_description,
                 timestamp: "Recently",
               });
             }
@@ -558,7 +560,7 @@ class FoodTrustFloatingUI {
 
     this.resultsCard.style.cssText = `
       position: fixed;
-      top: 50%;
+      top: 58%;
       right: 20px;
       transform: translateY(-50%);
       width: 380px;
@@ -665,10 +667,6 @@ class FoodTrustFloatingUI {
         overflow-y: auto;
         box-sizing: border-box;
       }
-
-      #foodtrust-results-card .reviews-list {
-        padding-bottom: 20px;
-      }
           
       #foodtrust-results-card .suspicious-reviews h4 {
         margin: 0 0 16px 0;
@@ -679,35 +677,130 @@ class FoodTrustFloatingUI {
       
       #foodtrust-results-card .review-item {
         background: #f7fafc;
-        border-radius: 8px;
-        padding: 12px;
-        margin-bottom: 12px;
-        border-left: 3px solid #e53e3e;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+        border-left: 4px solid #e53e3e;
+        transition: all 0.2s ease;
+        border: 1px solid rgba(229, 62, 62, 0.1);
+      }
+      
+      #foodtrust-results-card .review-item:hover {
+        background: #edf2f7;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(229, 62, 62, 0.15);
+        border-color: rgba(229, 62, 62, 0.3);
       }
       
       #foodtrust-results-card .review-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
       }
       
       #foodtrust-results-card .review-author {
         font-weight: 600;
-        font-size: 13px;
+        font-size: 14px;
         color: #2d3748;
       }
       
       #foodtrust-results-card .review-rating {
         font-size: 12px;
         color: #718096;
+        background: #e2e8f0;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-weight: 500;
+      }
+      
+      #foodtrust-results-card .review-content {
+        margin-bottom: 12px;
+      }
+      
+      #foodtrust-results-card .review-text-section {
+        margin-bottom: 12px;
+      }
+      
+      #foodtrust-results-card .content-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
       
       #foodtrust-results-card .review-text {
         font-size: 13px;
         color: #4a5568;
-        line-height: 1.4;
+        line-height: 1.5;
+        background: #ffffff;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+      }
+      
+      #foodtrust-results-card .ai-analysis-section {
+        background: #ffffff;
+        border-radius: 8px;
+        padding: 12px;
+        border: 1px solid #e2e8f0;
+      }
+      
+      #foodtrust-results-card .analysis-header {
+        font-size: 12px;
+        font-weight: 700;
+        color: #32467C;
         margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      #foodtrust-results-card .analysis-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      
+      #foodtrust-results-card .analysis-item {
+        background: #f8fafc;
+        border-radius: 6px;
+        padding: 8px;
+        border-left: 3px solid #32467C;
+      }
+      
+      #foodtrust-results-card .analysis-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: #32467C;
+        margin-bottom: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      
+      #foodtrust-results-card .analysis-content {
+        font-size: 12px;
+        color: #2d3748;
+        line-height: 1.4;
+        font-weight: 500;
+      }
+      
+      #foodtrust-results-card .analysis-content.category {
+        background: #bee3f8;
+        color: #2b6cb0;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        display: inline-block;
+      }
+      
+      #foodtrust-results-card .analysis-content.reason {
+        color: #4a5568;
+        font-style: italic;
       }
       
       #foodtrust-results-card .review-flags {
@@ -735,7 +828,7 @@ class FoodTrustFloatingUI {
       }
       
       #foodtrust-results-card .suspicion-score {
-        font-size: 11px;
+        font-size: 13px;
         color: #e53e3e;
         font-weight: 600;
       }
@@ -927,9 +1020,34 @@ class FoodTrustFloatingUI {
           <div class="review-author">${this.escapeHtml(review.author)}</div>
           <div class="review-rating">${review.rating}</div>
         </div>
-        <div class="review-text">${this.escapeHtml(
-          review.text.substring(0, 120)
-        )}${review.text.length > 120 ? "..." : ""}</div>
+        
+        <div class="review-content">
+          <div class="review-text-section">
+            <div class="content-label">📝 Review Text</div>
+            <div class="review-text">${this.escapeHtml(
+              review.text.substring(0, 120)
+            )}${review.text.length > 120 ? "..." : ""}</div>
+          </div>
+          
+          <div class="ai-analysis-section">
+            <div class="analysis-header">🤖 AI Analysis</div>
+            <div class="analysis-grid">
+              <div class="analysis-item">
+                <div class="analysis-label">Category</div>
+                <div class="analysis-content category">${this.escapeHtml(
+                  review.reasonCategory || "Not specified"
+                )}</div>
+              </div>
+              <div class="analysis-item">
+                <div class="analysis-label">Reason</div>
+                <div class="analysis-content reason">${this.escapeHtml(
+                  (review.reasonDescription || "").substring(0, 100)
+                )}${(review.reasonDescription || "").length > 100 ? "..." : ""}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div class="review-flags">
           ${(review.flags || [])
             .map(
@@ -939,8 +1057,8 @@ class FoodTrustFloatingUI {
                 }</span>`
             )
             .join("")}
-
         </div>
+        
         <div class="review-footer">
           <div class="suspicion-score">Suspicious: ${
             review.suspicionScore
@@ -1068,7 +1186,7 @@ class FoodTrustFloatingUI {
 
   scrollToAndHighlightReview(containerInfo, identifier) {
     // Highlight the review (can be single element or multiple elements)
-    this.highlightReview(containerInfo);
+    // this.highlightReview(containerInfo);
 
     // Get the main element for scrolling and indicator
     let scrollTarget = containerInfo;
