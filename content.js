@@ -1,5 +1,5 @@
 // FoodTrust Content Script - Floating UI Version
-const  iconUrl = chrome.runtime.getURL('transparent_icon.png'); 
+const iconUrl = chrome.runtime.getURL("transparent_icon.png");
 
 console.log("FoodTrust content script loaded");
 
@@ -293,7 +293,7 @@ class FoodTrustFloatingUI {
       if (ratingEl) {
         const ariaLabel = ratingEl.getAttribute("aria-label") || "";
         if (ariaLabel) {
-          const parts = ariaLabel.split(' ');
+          const parts = ariaLabel.split(" ");
           const potentialNumber = parts[0];
           if (!isNaN(potentialNumber)) {
             rating = potentialNumber;
@@ -308,7 +308,7 @@ class FoodTrustFloatingUI {
         id: reviewId,
         text: reviewText.replace(/\s+/g, " ").trim(),
         author: author || "Anonymous User",
-        rating: (rating + " stars") || "No rating",
+        rating: rating + " stars" || "No rating",
         reviewIndex: index, // Keep for backward compatibility
         reviewId: reviewId, // Primary identifier
         element: element,
@@ -418,10 +418,11 @@ class FoodTrustFloatingUI {
             if (isFake) {
               suspiciousReviews.push({
                 ...originalReview,
-                //suspicionScore: this.calculateSuspicionScore(result),
+                suspicionScore: this.calculateSuspicionScore(result),
                 flags: this.generateFlags(result, originalReview.text),
                 aiPrediction: result.predicted_label,
                 isFake: result.is_fake,
+                confidence: result.confidence,
                 timestamp: "Recently",
               });
             }
@@ -448,16 +449,20 @@ class FoodTrustFloatingUI {
     }
   }
 
-  // calculateSuspicionScore(result) {
-  //   // Convert AI result to suspicion score
-  //   if (result.is_fake === 1) {
-  //     // For fake reviews, generate a high suspicion score (75-95%)
-  //     return Math.floor(Math.random() * 20) + 75;
-  //   } else {
-  //     // For real reviews (shouldn't reach here in our filtering), lower score
-  //     return Math.floor(Math.random() * 30) + 40;
-  //   }
-  // }
+  calculateSuspicionScore(result) {
+    // Use the confidence score from AI response
+    if (result.confidence) {
+      // Convert confidence to percentage and round to nearest integer
+      return Math.round(parseFloat(result.confidence) * 100);
+    } else {
+      // Fallback if confidence is not available
+      if (result.is_fake === 1) {
+        return Math.floor(Math.random() * 20) + 75;
+      } else {
+        return Math.floor(Math.random() * 30) + 40;
+      }
+    }
+  }
 
   generateFlags(result, reviewText) {
     const flags = [];
@@ -465,36 +470,36 @@ class FoodTrustFloatingUI {
     // Always add AI detected fake flag since we only process is_fake: 1
     flags.push("ai_detected_fake");
 
-  //   // Add additional flags based on review characteristics
-  //   if (reviewText.length < 10) {
-  //     flags.push("too_short");
-  //   }
-  //   if (reviewText.length > 70) {
-  //     flags.push("too_long");
-  //   }
+    //   // Add additional flags based on review characteristics
+    //   if (reviewText.length < 10) {
+    //     flags.push("too_short");
+    //   }
+    //   if (reviewText.length > 70) {
+    //     flags.push("too_long");
+    //   }
 
-  //   // Check for extreme language patterns
-  //   const extremePatterns = [
-  //     /amazing|incredible|perfect|best ever|worst ever|awful/gi,
-  //   ];
-  //   if (extremePatterns.some((pattern) => pattern.test(reviewText))) {
-  //     flags.push("extreme_language");
-  //   }
+    //   // Check for extreme language patterns
+    //   const extremePatterns = [
+    //     /amazing|incredible|perfect|best ever|worst ever|awful/gi,
+    //   ];
+    //   if (extremePatterns.some((pattern) => pattern.test(reviewText))) {
+    //     flags.push("extreme_language");
+    //   }
 
-  //   // Check for repetitive words
-  //   const words = reviewText.toLowerCase().split(/\s+/);
-  //   const wordCount = {};
-  //   words.forEach((word) => {
-  //     if (word.length > 3) {
-  //       wordCount[word] = (wordCount[word] || 0) + 1;
-  //     }
-  //   });
-  //   if (Object.values(wordCount).some((count) => count > 2)) {
-  //     flags.push("repetitive");
-  //   }
+    //   // Check for repetitive words
+    //   const words = reviewText.toLowerCase().split(/\s+/);
+    //   const wordCount = {};
+    //   words.forEach((word) => {
+    //     if (word.length > 3) {
+    //       wordCount[word] = (wordCount[word] || 0) + 1;
+    //     }
+    //   });
+    //   if (Object.values(wordCount).some((count) => count > 2)) {
+    //     flags.push("repetitive");
+    //   }
 
-  //   return flags;
-   }
+    //   return flags;
+  }
 
   showResults(results) {
     // Remove existing results card
@@ -745,7 +750,7 @@ class FoodTrustFloatingUI {
       }
       
       #foodtrust-results-card .click-hint {
-        font-size: 10px;
+        font-size: 12px;
         color: #718096;
         font-style: italic;
       }
@@ -937,6 +942,14 @@ class FoodTrustFloatingUI {
 
         </div>
         <div class="review-footer">
+          <div class="suspicion-score">Suspicious: ${
+            review.suspicionScore
+          }%</div>
+          ${
+            review.isFake === 1
+              ? '<div class="fake-badge">⚠️ FAKE DETECTED</div>'
+              : ""
+          }
           <div class="click-hint">👆 Click to scroll to review</div>
         </div>
       </div>
