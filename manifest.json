@@ -29,5 +29,11 @@
     "16": "icon.png",
     "48": "icon.png",
     "128": "icon.png"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["transparent_icon.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
