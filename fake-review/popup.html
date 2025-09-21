@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FoodTrust - Settings</title>
+    <link rel="stylesheet" href="popup.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <div class="logo">
+            <svg
+              class="logo-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"
+                fill="currentColor"
+              />
+            </svg>
+            <h1 class="title">FoodTrust</h1>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="settings-card">
+          <div class="setting-item">
+            <div class="setting-info">
+              <h3 class="setting-title">Enable FoodTrust</h3>
+              <p class="setting-description">
+                Show floating scan button on Google Maps pages
+              </p>
+            </div>
+            <div class="toggle-container">
+              <label class="toggle-switch">
+                <input type="checkbox" id="enableToggle" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="status-info" id="statusInfo">
+            <div class="status-indicator active" id="statusIndicator"></div>
+            <span class="status-text" id="statusText"
+              >Active on Google Maps</span
+            >
+          </div>
+
+          <div class="info-section">
+            <h4>How it works:</h4>
+            <ul>
+              <li>Navigate to any Google Maps restaurant page</li>
+              <li>Look for the floating scan button in the bottom-right</li>
+              <li>Click to analyze reviews with AI</li>
+              <li>View results in the floating card</li>
+            </ul>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
