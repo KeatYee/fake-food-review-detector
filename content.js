@@ -57,7 +57,7 @@ class FoodTrustFloatingUI {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #32467C;
       color: white;
       border: none;
       border-radius: 50px;
@@ -67,7 +67,7 @@ class FoodTrustFloatingUI {
       font-weight: 600;
       cursor: pointer;
       z-index: 10000;
-      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 4px 20px rgba(50, 70, 124, 0.4);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -78,12 +78,12 @@ class FoodTrustFloatingUI {
     // Add hover effects
     this.scanButton.addEventListener("mouseenter", () => {
       this.scanButton.style.transform = "translateY(-2px)";
-      this.scanButton.style.boxShadow = "0 6px 25px rgba(102, 126, 234, 0.5)";
+      this.scanButton.style.boxShadow = "0 6px 25px rgba(50, 70, 124, 0.5)";
     });
 
     this.scanButton.addEventListener("mouseleave", () => {
       this.scanButton.style.transform = "translateY(0)";
-      this.scanButton.style.boxShadow = "0 4px 20px rgba(102, 126, 234, 0.4)";
+      this.scanButton.style.boxShadow = "0 4px 20px rgba(50, 70, 124, 0.4)";
     });
 
     // Add click handler
@@ -108,7 +108,7 @@ class FoodTrustFloatingUI {
       }
       
       #foodtrust-scan-button.scanning {
-        background: linear-gradient(135deg, #ffa726 0%, #ff7043 100%);
+        background: rgba(50, 70, 124, 0.8);
         pointer-events: none;
       }
       
@@ -581,7 +581,7 @@ class FoodTrustFloatingUI {
         justify-content: space-between;
         align-items: center;
         padding: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #32467C;
         color: white;
       }
       
@@ -727,7 +727,7 @@ class FoodTrustFloatingUI {
       
       #foodtrust-results-card .ai-prediction {
         font-size: 10px;
-        color: #667eea;
+        color: #32467C;
         font-weight: 600;
         background: #e6f3ff;
         padding: 2px 6px;
@@ -1144,7 +1144,7 @@ class FoodTrustFloatingUI {
       top: -15px;
       left: 50%;
       transform: translateX(-50%);
-      background: #e53e3e;
+      background: #32467C;
       color: white;
       padding: 6px 12px;
       border-radius: 20px;

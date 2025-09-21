@@ -2,10 +2,10 @@
 
 .foodtrust-suspicious-review {
   position: relative;
-  border: 2px solid #fed7d7 !important;
+  border: 2px solid #e53e3e !important;
   border-radius: 8px !important;
-  background: linear-gradient(90deg, rgba(254, 215, 215, 0.1) 0%, rgba(254, 178, 178, 0.1) 100%) !important;
-  box-shadow: 0 2px 8px rgba(229, 62, 62, 0.15) !important;
+  background: linear-gradient(90deg, rgba(229, 62, 62, 0.1) 0%, rgba(229, 62, 62, 0.15) 100%) !important;
+  box-shadow: 0 2px 8px rgba(229, 62, 62, 0.25) !important;
 }
 
 .foodtrust-suspicious-review::before {
@@ -30,7 +30,7 @@
   right: 20px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border: 1px solid #e2e8f0;
+  border: 1px solid #32467C;
   border-radius: 12px;
   padding: 12px 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -38,7 +38,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 14px;
   font-weight: 500;
-  color: #1a202c;
+  color: #32467C;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -52,15 +52,15 @@
 
 .foodtrust-trust-score {
   font-weight: 700;
-  color: #48bb78;
+  color: #32467C;
 }
 
 .foodtrust-trust-score.medium {
-  color: #ed8936;
+  color: #32467C;
 }
 
 .foodtrust-trust-score.low {
-  color: #e53e3e;
+  color: #32467C;
 }
 
 .foodtrust-scan-overlay {
@@ -69,7 +69,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(50, 70, 124, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,18 +79,19 @@
 
 .foodtrust-scan-content {
   background: white;
+  border: 2px solid #32467C;
   border-radius: 16px;
   padding: 32px;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 40px rgba(50, 70, 124, 0.3);
   max-width: 320px;
 }
 
 .foodtrust-scan-spinner {
   width: 48px;
   height: 48px;
-  border: 4px solid #e2e8f0;
-  border-top: 4px solid #667eea;
+  border: 4px solid rgba(50, 70, 124, 0.2);
+  border-top: 4px solid #32467C;
   border-radius: 50%;
   animation: foodtrust-spin 1s linear infinite;
   margin: 0 auto 16px;
@@ -104,13 +105,13 @@
 .foodtrust-scan-text {
   font-size: 16px;
   font-weight: 600;
-  color: #1a202c;
+  color: #32467C;
   margin-bottom: 8px;
 }
 
 .foodtrust-scan-subtext {
   font-size: 14px;
-  color: #718096;
+  color: #32467C;
 }
 
 /* Platform-specific adjustments */
