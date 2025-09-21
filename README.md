@@ -22,7 +22,7 @@ We made an AI browser extension that brings transparency back to online reviews.
 *   **Data-Driven:** Trained on a custom-built dataset of real and AI-generated fake reviews for high accuracy.
 
 ## ✨ System Architecture Diagram
-![System Architecture Diagram](./System_Architecture_Diagram.png)
+![System Architecture Diagram](./System_Architecture_Diagram.drawio.png)
 
 ## 🛠️ Technology Stack
 
