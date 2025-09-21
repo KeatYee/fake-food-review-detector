@@ -466,16 +466,16 @@ class FoodTrustFloatingUI {
     flags.push("ai_detected_fake");
 
     // Add additional flags based on review characteristics
-    if (reviewText.length < 30) {
+    if (reviewText.length < 10) {
       flags.push("too_short");
     }
-    if (reviewText.length > 500) {
+    if (reviewText.length > 70) {
       flags.push("too_long");
     }
 
     // Check for extreme language patterns
     const extremePatterns = [
-      /amazing|incredible|perfect|best ever|worst ever|terrible|awful/gi,
+      /amazing|incredible|perfect|best ever|worst ever|awful/gi,
     ];
     if (extremePatterns.some((pattern) => pattern.test(reviewText))) {
       flags.push("extreme_language");
@@ -516,7 +516,7 @@ class FoodTrustFloatingUI {
         : 100;
 
     this.resultsCard.innerHTML = `
-      <div class="results-header">
+      <div class="results-header" style="height: 40px;">
         <div class="results-title">
           <img src="${iconUrl}" alt="FoodTrust Logo" style="width: 80px; height: 80px; border-radius: 4px;" />
           FoodTrust Analysis
@@ -545,6 +545,8 @@ class FoodTrustFloatingUI {
           ${results.suspiciousReviews
             .map((review) => this.createReviewHTML(review))
             .join("")}
+
+          <span class="click-hint">💡Please scroll the review section to scan more..</span>
         </div>
       </div>
     `;
@@ -656,8 +658,13 @@ class FoodTrustFloatingUI {
         padding: 20px;
         max-height: 400px;
         overflow-y: auto;
+        box-sizing: border-box;
       }
-      
+
+      #foodtrust-results-card .reviews-list {
+        padding-bottom: 20px;
+      }
+          
       #foodtrust-results-card .suspicious-reviews h4 {
         margin: 0 0 16px 0;
         font-size: 14px;
@@ -927,19 +934,9 @@ class FoodTrustFloatingUI {
                 }</span>`
             )
             .join("")}
+
         </div>
         <div class="review-footer">
-  
-          ${
-            review.aiPrediction
-              ? `<div class="ai-prediction">🤖 AI: ${review.aiPrediction}</div>`
-              : ""
-          }
-          ${
-            review.isFake === 1
-              ? '<div class="fake-badge">⚠️ FAKE DETECTED</div>'
-              : ""
-          }
           <div class="click-hint">👆 Click to scroll to review</div>
         </div>
       </div>
