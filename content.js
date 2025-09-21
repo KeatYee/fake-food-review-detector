@@ -909,7 +909,7 @@ class FoodTrustFloatingUI {
       suspicious_author: "Suspicious Author",
       too_short: "Too Short",
       too_long: "Too Long",
-      ai_detected_fake: "🤖 AI: Fake Review",
+      ai_detected_fake: "🤖 AI: Suspicious",
       negative_sentiment: "AI: Negative",
       ai_flagged: "AI Flagged",
     };
