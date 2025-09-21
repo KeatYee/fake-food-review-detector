@@ -291,9 +291,13 @@ class FoodTrustFloatingUI {
       const ratingEl = element.querySelector(selector);
       if (ratingEl) {
         const ariaLabel = ratingEl.getAttribute("aria-label") || "";
-        if (ariaLabel.includes("star")) {
-          rating = ariaLabel;
-          break;
+        if (ariaLabel) {
+          const parts = ariaLabel.split(' ');
+          const potentialNumber = parts[0];
+          if (!isNaN(potentialNumber)) {
+            rating = potentialNumber;
+            break;
+          }
         }
       }
     }
@@ -303,7 +307,7 @@ class FoodTrustFloatingUI {
         id: reviewId,
         text: reviewText.replace(/\s+/g, " ").trim(),
         author: author || "Anonymous User",
-        rating: rating || "No rating",
+        rating: (rating + " stars") || "No rating",
         reviewIndex: index, // Keep for backward compatibility
         reviewId: reviewId, // Primary identifier
         element: element,
