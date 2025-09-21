@@ -1,7 +1,7 @@
 # fake-food-review-detector
 An AI-powered browser extension to detect fake reviews on Google Maps. Built for the the Great AI Hackathon 2025.
 
-# 🕵️ DetectoGuard - Fake Food Review AI Detector
+# FoodTrust - Fake Food Review AI Detector
 
 **Team Penguining** | AWS Hackathon 2024 | Student Track
 
