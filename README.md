@@ -19,9 +19,9 @@ We made an AI browser extension that brings transparency back to online reviews.
 *   **Advanced AI Detection:** Leverages Amazon SageMaker to detect fake reviews based on linguistic patterns, sentiment analysis, and behavioral cues.
 *   **Simple & Intuitive UI:** Displays a clear, color-coded authenticity score (e.g., **"85% Authentic"**) directly on the page.
 *   **Scalable AWS Backend:** Built on a serverless architecture using AWS Lambda and API Gateway for reliable and cost-effective performance.
-*   **📊 Data-Driven:** Trained on a custom-built dataset of real and AI-generated fake reviews for high accuracy.
+*   **Data-Driven:** Trained on a custom-built dataset of real and AI-generated fake reviews for high accuracy.
 
-
+## ✨ System Architecture Diagram
 ![System Architecture Diagram](./architecture_diagram.png)
 
 ## 🛠️ Technology Stack
