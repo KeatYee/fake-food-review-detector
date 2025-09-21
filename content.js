@@ -465,36 +465,36 @@ class FoodTrustFloatingUI {
     // Always add AI detected fake flag since we only process is_fake: 1
     flags.push("ai_detected_fake");
 
-    // Add additional flags based on review characteristics
-    if (reviewText.length < 10) {
-      flags.push("too_short");
-    }
-    if (reviewText.length > 70) {
-      flags.push("too_long");
-    }
+  //   // Add additional flags based on review characteristics
+  //   if (reviewText.length < 10) {
+  //     flags.push("too_short");
+  //   }
+  //   if (reviewText.length > 70) {
+  //     flags.push("too_long");
+  //   }
 
-    // Check for extreme language patterns
-    const extremePatterns = [
-      /amazing|incredible|perfect|best ever|worst ever|awful/gi,
-    ];
-    if (extremePatterns.some((pattern) => pattern.test(reviewText))) {
-      flags.push("extreme_language");
-    }
+  //   // Check for extreme language patterns
+  //   const extremePatterns = [
+  //     /amazing|incredible|perfect|best ever|worst ever|awful/gi,
+  //   ];
+  //   if (extremePatterns.some((pattern) => pattern.test(reviewText))) {
+  //     flags.push("extreme_language");
+  //   }
 
-    // Check for repetitive words
-    const words = reviewText.toLowerCase().split(/\s+/);
-    const wordCount = {};
-    words.forEach((word) => {
-      if (word.length > 3) {
-        wordCount[word] = (wordCount[word] || 0) + 1;
-      }
-    });
-    if (Object.values(wordCount).some((count) => count > 2)) {
-      flags.push("repetitive");
-    }
+  //   // Check for repetitive words
+  //   const words = reviewText.toLowerCase().split(/\s+/);
+  //   const wordCount = {};
+  //   words.forEach((word) => {
+  //     if (word.length > 3) {
+  //       wordCount[word] = (wordCount[word] || 0) + 1;
+  //     }
+  //   });
+  //   if (Object.values(wordCount).some((count) => count > 2)) {
+  //     flags.push("repetitive");
+  //   }
 
-    return flags;
-  }
+  //   return flags;
+   }
 
   showResults(results) {
     // Remove existing results card
@@ -903,15 +903,15 @@ class FoodTrustFloatingUI {
 
   createReviewHTML(review) {
     const flagLabels = {
-      extreme_language: "Extreme Language",
-      generic_phrases: "Generic Phrases",
-      repetitive: "Repetitive",
-      suspicious_author: "Suspicious Author",
-      too_short: "Too Short",
-      too_long: "Too Long",
+      // extreme_language: "Extreme Language",
+      // generic_phrases: "Generic Phrases",
+      // repetitive: "Repetitive",
+      // suspicious_author: "Suspicious Author",
+      // too_short: "Too Short",
+      // too_long: "Too Long",
       ai_detected_fake: "🤖 AI: Suspicious",
-      negative_sentiment: "AI: Negative",
-      ai_flagged: "AI Flagged",
+      //negative_sentiment: "AI: Negative",
+      //ai_flagged: "AI Flagged",
     };
 
     return `
