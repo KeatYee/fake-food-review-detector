@@ -413,7 +413,7 @@ class FoodTrustFloatingUI {
             if (isFake) {
               suspiciousReviews.push({
                 ...originalReview,
-                suspicionScore: this.calculateSuspicionScore(result),
+                //suspicionScore: this.calculateSuspicionScore(result),
                 flags: this.generateFlags(result, originalReview.text),
                 aiPrediction: result.predicted_label,
                 isFake: result.is_fake,
@@ -443,16 +443,16 @@ class FoodTrustFloatingUI {
     }
   }
 
-  calculateSuspicionScore(result) {
-    // Convert AI result to suspicion score
-    if (result.is_fake === 1) {
-      // For fake reviews, generate a high suspicion score (75-95%)
-      return Math.floor(Math.random() * 20) + 75;
-    } else {
-      // For real reviews (shouldn't reach here in our filtering), lower score
-      return Math.floor(Math.random() * 30) + 40;
-    }
-  }
+  // calculateSuspicionScore(result) {
+  //   // Convert AI result to suspicion score
+  //   if (result.is_fake === 1) {
+  //     // For fake reviews, generate a high suspicion score (75-95%)
+  //     return Math.floor(Math.random() * 20) + 75;
+  //   } else {
+  //     // For real reviews (shouldn't reach here in our filtering), lower score
+  //     return Math.floor(Math.random() * 30) + 40;
+  //   }
+  // }
 
   generateFlags(result, reviewText) {
     const flags = [];
@@ -926,9 +926,7 @@ class FoodTrustFloatingUI {
             .join("")}
         </div>
         <div class="review-footer">
-          <div class="suspicion-score">Suspicion: ${
-            review.suspicionScore
-          }%</div>
+  
           ${
             review.aiPrediction
               ? `<div class="ai-prediction">🤖 AI: ${review.aiPrediction}</div>`
